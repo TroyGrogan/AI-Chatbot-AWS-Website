@@ -1,0 +1,115 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 50px; /* Match the landing page margin-top */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+  backdrop-filter: blur(3px); /* Slight blur effect */
+}
+
+.form-input {
+  width: 95%; /* Match the button width */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+}
+
+/* Password input container styles */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 95%; /* Match the other inputs and buttons */
+  margin: 10px 0;
+}
+
+.password-input-container .form-input {
+  width: 100%; /* Fill the container */
+  margin: 0;
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-icon:hover {
+  color: #333;
+}
+
+/* Password requirements styles - updated to match Account Info page */
+.password-requirements {
+  width: 95%; /* Match other elements */
+  margin: 10px 0;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid #4285f4;
+  font-size: 0.85rem;
+}
+
+.password-requirements p {
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  color: #495057;
+}
+
+.password-requirements ul {
+  margin: 0;
+  padding-left: 20px; /* Standard padding for bullets */
+  list-style-type: disc; /* Explicitly set bullet style */
+}
+
+.password-requirements li {
+  margin-bottom: 3px;
+  color: #6c757d; /* Light grey color from Account Info page */
+}
+
+/* Remove colored validation styles */
+.password-requirements li.valid,
+.password-requirements li.invalid {
+  color: #333; /* All items same color */
+}
+
+/* Hide the check/times icons */
+.check-icon, .times-icon {
+  display: none;
+}
+
+/* Form button styling */
+.form-button {
+  width: 95%; /* Match the landing page button width */
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 16px; /* Match landing page font size */
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+/* Back button styling */
+.back-button:hover {
+  color: rgba(0, 0, 0, 0.8) !important;
+}

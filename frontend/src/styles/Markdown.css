@@ -1,0 +1,506 @@
+/* Code Block Styles - More consistent with ChatGPT */
+.code-block-container {
+  margin: 1rem 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #1e1e1e; /* Darker background like ChatGPT */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  position: relative;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #343541; /* Match ChatGPT header color */
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #565869;
+}
+
+.code-language {
+  text-transform: lowercase;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #FFFFF2; /* Changed to match the tan background of the page */
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.copy-button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ChatGPT-like syntax highlighting tweaks */
+code[class*="language-"],
+pre[class*="language-"] {
+  text-shadow: none !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  color: #f0f0f0 !important; /* Lighter text color for better readability on dark background */
+}
+
+/* Add a specific style for non-highlighted code text */
+code[class*="language-"] span:not([class]),
+pre[class*="language-"] span:not([class]) {
+  color: #f0f0f0 !important; /* Ensure non-highlighted text is also visible */
+}
+
+/* Line numbers styling */
+.linenumber {
+  color: #6b7280 !important;
+  opacity: 0.6 !important;
+  min-width: 1.5em !important;
+  padding-right: 1em !important;
+}
+
+/* Markdown Content Styles - Refined for better readability */
+.markdown-content {
+  line-height: 1.6;
+  color: #333;
+  font-size: 1rem;
+}
+
+.markdown-content p {
+  margin: 0.75rem 0;
+}
+
+.markdown-content h1 {
+  font-size: 1.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.markdown-content h4 {
+  font-size: 1.125rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Improved list styling */
+.markdown-content ul, 
+.markdown-content ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.markdown-content li {
+  margin: 0.375rem 0;
+}
+
+.markdown-content li::marker {
+  color: #6B7280;
+}
+
+.markdown-content ul li::marker {
+  content: "• "; /* Custom bullet character */
+}
+
+.markdown-content ol {
+  counter-reset: list-counter;
+}
+
+.markdown-content ol li {
+  counter-increment: list-counter;
+}
+
+.markdown-content li ul, 
+.markdown-content li ol {
+  margin: 0.25rem 0 0.25rem 0;
+}
+
+/* Table styling like ChatGPT */
+.markdown-content table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+.markdown-content table th,
+.markdown-content table td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.markdown-content table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.markdown-content table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* Better link styling */
+.markdown-content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+/* Better horizontal rule styling */
+.markdown-content hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
+}
+
+/* Improved blockquote styling to match ChatGPT */
+.markdown-content blockquote {
+  border-left: 3px solid #caced8; /* ChatGPT uses a lighter color */
+  padding: 0 0 0 1rem;
+  margin: 1rem 0;
+  color: #374151;
+  font-style: italic;
+}
+
+.markdown-content blockquote p {
+  margin: 0.5rem 0;
+}
+
+/* Enhanced code styling to match ChatGPT */
+.markdown-content code {
+  background-color: #f7f7f9; /* Lighter background for inline code */
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+  color: #ff9900; /* Amazon orange color */
+}
+
+/* Empty content state */
+.markdown-content.empty {
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Dark mode adjustments if needed */
+@media (prefers-color-scheme: dark) {
+  .markdown-content {
+    color: #e5e7eb;
+  }
+  
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4 {
+    color: #f9fafb;
+  }
+  
+  .markdown-content blockquote {
+    border-color: #4b5563;
+    color: #9ca3af;
+  }
+  
+  .markdown-content table th {
+    background-color: #374151;
+  }
+  
+  .markdown-content table tr:nth-child(even) {
+    background-color: #1f2937;
+  }
+  
+  .markdown-content table th,
+  .markdown-content table td {
+    border-color: #4b5563;
+  }
+  
+  .markdown-content a {
+    color: #60a5fa;
+  }
+  
+  .markdown-content hr {
+    border-color: #4b5563;
+  }
+  
+  .markdown-content code {
+    background-color: #2d3748;
+    color: #ff9900; /* Amazon orange color */
+  }
+}
+
+/* Make sure plain text code blocks are properly styled with our custom colors */
+pre.prism-code {
+  color: #f0f0f0 !important;
+}
+
+.token.plain-text {
+  color: #f0f0f0 !important;
+}
+
+/* Non-highlighted text should be visible */
+.code-block-container pre {
+  color: #f0f0f0 !important;
+}
+
+/* Math expression styling - Enhanced to match ChatGPT */
+.math-block {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  padding: 0.8rem 0;
+  width: 100%;
+  overflow-x: auto;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 6px;
+}
+
+.math-inline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 3px;
+  vertical-align: middle;
+  font-size: 1.1em;
+}
+
+/* Style for KaTeX elements */
+.katex {
+  font-size: 1.15em !important;
+  font-family: 'KaTeX_Math', 'Times New Roman', serif !important;
+  line-height: 1.3 !important;
+}
+
+.katex-display {
+  margin: 0.5rem 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.katex-display > .katex {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* Make sure equations don't overflow on mobile */
+@media (max-width: 768px) {
+  .math-block {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+  
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 1rem;
+  }
+  
+  .katex {
+    font-size: 1.05em !important;
+  }
+}
+
+/* Math processor container */
+.math-processor {
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Improve spacing within math processor */
+.math-processor > span {
+  margin-right: 0;
+}
+
+/* Add some gap between consecutive math blocks */
+.math-processor > .math-block + .math-block {
+  margin-top: 1rem;
+}
+
+/* Dark mode adjustments for math */
+@media (prefers-color-scheme: dark) {
+  .math-block .katex {
+    color: #f0f0f0;
+  }
+}
+
+/* Markdown.css - Styles for content rendered by react-markdown */
+
+.message-content {
+    line-height: 1.6;
+    font-size: 16px;
+    color: #1a1a1a; /* Default text color */
+    word-wrap: break-word; /* Ensure long words break */
+}
+
+/* Paragraphs */
+.message-content p {
+    margin-top: 0; /* Reset default top margin */
+    margin-bottom: 1em; /* Space between paragraphs */
+}
+
+/* Remove margin from last element in message content */
+.message-content > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Headings */
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #111827;
+}
+
+.message-content h1 { font-size: 1.8em; }
+.message-content h2 { font-size: 1.5em; }
+.message-content h3 { font-size: 1.3em; }
+.message-content h4 { font-size: 1.1em; }
+
+/* Lists */
+.message-content ul,
+.message-content ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.message-content li {
+    margin-bottom: 0.4em;
+}
+
+.message-content li p {
+    margin-bottom: 0; /* Remove extra margin for paragraphs inside list items */
+}
+
+/* Code Blocks - Specific targeting */
+.message-content pre {
+    background-color: #282c34; /* Dark background */
+    color: #abb2bf; /* Light grey text */
+    border: 1px solid #3a3f4b; /* Subtle border */
+    border-radius: 6px;
+    padding: 1em;
+    margin: 1em 0; /* Vertical margin */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    line-height: 1.45;
+    white-space: pre; /* Preserve whitespace */
+}
+
+/* Inline Code */
+/* Target 'code' elements that are NOT inside a 'pre' element */
+.message-content :not(pre) > code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    background-color: rgba(175, 184, 193, 0.2); /* Subtle background */
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-size: 0.85em; /* Slightly smaller */
+    color: #24292e; /* Darker text for inline */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Ensure code inside pre doesn't inherit inline styles */
+.message-content pre code {
+    /* Reset styles that might be inherited from inline code */
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    font-size: inherit; /* Inherit size from pre */
+    color: inherit; /* Inherit color from pre */
+    white-space: inherit; /* Inherit whitespace handling from pre */
+    font-family: inherit; /* Inherit font from pre */
+}
+
+/* Blockquotes */
+.message-content blockquote {
+    margin-left: 0;
+    padding-left: 1em;
+    border-left: 4px solid #dfe2e5; /* Lighter border */
+    color: #586069; /* Grey text */
+    margin-bottom: 1em;
+}
+
+.message-content blockquote p {
+    margin-bottom: 0; /* No extra space inside blockquote */
+}
+
+/* Links */
+.message-content a {
+    color: #0366d6; /* Standard link blue */
+    text-decoration: none;
+}
+
+.message-content a:hover {
+    text-decoration: underline;
+}
+
+/* Horizontal Rules */
+.message-content hr {
+    border: 0;
+    border-top: 1px solid #dfe2e5;
+    margin: 1.5em 0;
+}
+
+/* --- Spacing with KaTeX --- */
+
+/* Ensure block math display has consistent margins */
+.message-content .katex-display {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+/* Adjust paragraph margins when adjacent to block math */
+.message-content p + .katex-display {
+    margin-top: 1em; 
+}
+.message-content .katex-display + p {
+    margin-top: 1em;
+}
+
+/* Spacing around inline math */
+.message-content .katex {
+    margin: 0 1px; /* Minimal horizontal space */
+    /* vertical-align might be needed depending on line-height */
+} 

@@ -1,0 +1,316 @@
+.implementation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    background-color: transparent;
+}
+
+.implementation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    height: 60px;
+    z-index: 10;
+}
+
+.implementation-title-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 5;
+}
+
+.implementation-title-container h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: rgb(34, 31, 31);
+    font-weight: 700;
+    font-family: 'Times New Roman, serif';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #555;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgb(234, 244, 235) !important; /* Light green color */
+    cursor: pointer;
+    z-index: 10;
+    width: 42px;
+    height: 42px;
+    margin-right: auto;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: rgb(214, 224, 215) !important; /* Slightly darker green */
+}
+
+.back-button .header-icon {
+    color: rgb(34, 31, 31) !important; /* Using new black */
+}
+
+.right-placeholder {
+    width: 40px;
+    margin-left: auto;
+}
+
+.implementation-content {
+    padding: 10px;
+}
+
+.implementation-section {
+    margin-bottom: 30px;
+    background-color: rgb(234, 244, 235); /* Light green color */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.implementation-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.implementation-section p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.implementation-section ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.implementation-section li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Specific colors for each implementation page */
+.implementation-container[data-type="ai"] .implementation-section {
+    border-left: 4px solid #4285f4;
+    background-color: rgb(234, 244, 235); /* Light green color */
+}
+
+.implementation-container[data-type="ai"] .implementation-title-container h2 {
+    color: #4285f4;
+}
+
+.implementation-container[data-type="ai"] .header-icon {
+    color: #4285f4;
+}
+
+.implementation-container[data-type="aws"] .implementation-section {
+    border-left: 4px solid #ff9900;
+}
+
+.implementation-container[data-type="aws"] .implementation-title-container h2 {
+    color: #ff9900;
+}
+
+.implementation-container[data-type="aws"] .header-icon {
+    color: #ff9900;
+}
+
+/* Specific header icon coloring for the implementation pages */
+.implementation-container[data-type="ai"] .implementation-title-container .header-icon {
+    color: #4285f4;
+}
+
+.implementation-container[data-type="aws"] .implementation-title-container .header-icon {
+    color: #ff9900;
+}
+
+/* Specific icons styling */
+.robot-icon {
+    color: #4285f4 !important; /* Google blue */
+}
+
+.aws-icon {
+    color: #ff9900 !important; /* AWS orange */
+}
+
+/* Make sure all other icons in the AI implementation page are blue */
+.implementation-container[data-type="ai"] .implementation-section h3 .header-icon,
+.implementation-container[data-type="ai"] .implementation-content .header-icon {
+    color: #4285f4 !important;
+}
+
+/* Make sure all other icons in the AWS implementation page are orange */
+.implementation-container[data-type="aws"] .implementation-section h3 .header-icon,
+.implementation-container[data-type="aws"] .implementation-content .header-icon {
+    color: #ff9900 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .implementation-container {
+        padding: 15px;
+    }
+    
+    .implementation-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .implementation-section {
+        padding: 15px;
+    }
+}
+
+/* Page header styling */
+.page-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 5px;
+    font-family: 'Times New Roman, serif';
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.page-header-content span {
+    font-family: 'Times New Roman, serif';
+    font-weight: bold;
+}
+
+/* Fix for the top header icons */
+.page-header-content .robot-icon {
+    color: #4285f4 !important;
+}
+
+.page-header-content .aws-icon {
+    color: #ff9900 !important;
+}
+
+/* Implementation title styling */
+.implementation-container[data-type="ai"] h2 span {
+    color: #4285f4 !important; /* Google blue */
+}
+
+.implementation-container[data-type="aws"] h2 span {
+    color: #ff9900 !important; /* AWS orange */
+}
+
+.implementation-section a {
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px dashed #007bff;
+    padding-bottom: 1px;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.implementation-section a:hover {
+    color: #0056b3;
+    border-bottom: 1px solid #0056b3;
+}
+
+/* Tensor images styling */
+.tensor-image-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.medium-image-container {
+    margin-bottom: 30px;
+}
+
+.wiki-image-container {
+    margin: 30px 0;
+}
+
+.benchmark-image-container {
+    margin: 25px 0;
+}
+
+.transformer-image-container {
+    margin: 25px 0;
+}
+
+.tensor-image {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: auto;
+}
+
+.tensor-medium {
+    width: 100%;
+    max-width: 650px; /* Fits nicely in the container */
+}
+
+.tensor-wiki {
+    width: 450px; /* 2x larger than previous size */
+    max-width: 90%;
+}
+
+.benchmark-image {
+    width: 100%;
+    max-width: 700px; /* Fits nicely in the container */
+}
+
+.transformer-image {
+    width: 100%;
+    max-width: 450px;
+}
+
+.image-link {
+    border-bottom: none !important;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding-bottom: 0;
+}
+
+.image-link:hover .tensor-image {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+    .tensor-medium {
+        max-width: 90%;
+    }
+    
+    .tensor-wiki {
+        width: 400px;
+        max-width: 90%;
+    }
+    
+    .benchmark-image {
+        max-width: 90%;
+    }
+    
+    .transformer-image {
+        max-width: 90%;
+    }
+} 

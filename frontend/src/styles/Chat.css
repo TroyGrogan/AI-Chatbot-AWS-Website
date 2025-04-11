@@ -1,0 +1,1639 @@
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ensure no scrollbars appear */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.chat-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+
+.chat-messages {
+    flex: 1;
+    height: 60vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 0;
+    margin-top: 0;
+    background-color: #FFFFF2;
+    position: relative;
+    z-index: 1;
+    mask-image: none;
+    -webkit-mask-image: none;
+    /* Add padding to ensure scrollbar is always visible */
+    padding-right: 15px;
+}
+
+/* Remove Firefox scrollbar styling */
+@supports (scrollbar-width: auto) {
+    .chat-messages {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+}
+
+/* Custom scrollbar styling for Webkit browsers - ChatGPT style */
+.chat-messages::-webkit-scrollbar {
+    width: 7px;
+    height: auto;
+    position: absolute;
+    right: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0; /* Add top/bottom margin to ensure track is always visible */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: none;
+    background-clip: padding-box;
+    /* Add min/max height to ensure thumb is always visible */
+    min-height: 40px;
+    max-height: calc(100% - 20px);
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Completely hide scrollbar corner */
+.chat-messages::-webkit-scrollbar-corner {
+    background-color: transparent;
+    display: none;
+}
+
+/* Remove previous pseudo-element that created the corner space */
+.chat-container::before {
+    display: none;
+}
+
+/* Input container styling */
+.chat-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px 24px;
+    background: #E2E2C9;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 10;
+    margin-top: 0;
+    /* Ensure chat input doesn't extend beyond page width */
+    width: 100vw;
+    max-width: 100%;
+}
+
+/* Adjust bottom padding of messages container to give scroll space */
+.chat-container::after {
+    content: '';
+    height: 120px;
+    display: block;
+}
+
+/* Create a scrollbar-safe space */
+.chat-message-container {
+    padding-right: 8px;
+}
+
+/* Chat form with proper spacing */
+.chat-input-form {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Textbox styling */
+.textarea-container {
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Insert a custom blinking cursor for textarea */
+@keyframes caretBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.chat-textarea {
+    display: block;
+    min-height: 24px;
+    max-height: 40vh; /* Slightly less than half the screen */
+    height: 48px;
+    padding: 12px 45px 12px 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #e5e5e5;
+    border-radius: 24px;
+    background: #FFFFF2;
+    resize: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    transition: border-color 0.2s, box-shadow 0.2s, height 0.2s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    /* Better cursor styling for consistency */
+    caret-color: #4285f4;
+    /* Ensure consistent rendering of all text */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Set a fixed character height */
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+.chat-textarea:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.3);
+}
+
+.chat-textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* Webkit scrollbar styling for textarea */
+.chat-textarea::-webkit-scrollbar {
+    width: 6px;
+    display: none; /* Hide scrollbar by default */
+}
+
+.chat-textarea.show-scrollbar::-webkit-scrollbar {
+    display: block; /* Show scrollbar only when class is applied */
+    position: absolute;
+    right: 2px;
+}
+
+.chat-textarea.show-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 0;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.chat-textarea.show-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border: none;
+    background-clip: padding-box;
+    max-height: calc(100% - 80px);
+    height: 1px !important;
+    min-height: 1px;
+}
+
+.chat-textarea.show-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Style for disabled textarea */
+.chat-textarea.disabled-textarea {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: not-allowed;
+    animation: pulse-border 2s infinite;
+}
+
+/* Fix chat message spacing */
+.chat-message {
+    margin-bottom: 20px;
+}
+
+.chat-message:last-child {
+    margin-bottom: 0;
+}
+
+/* Make sure content wrapper respects container width */
+.chat-messages-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 120px;
+    max-width: 100%;
+}
+
+/* When followed by history notice, adjust bottom styling */
+.chat-messages-wrapper.sandwich-bottom {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.user-message {
+    background-color: #e3f2fd;
+    margin-left: 20%;
+}
+
+.ai-message {
+    background-color: #f5f5f5;
+    margin-right: 20%;
+}
+
+.message strong {
+    display: block;
+    margin-bottom: 5px;
+    color: rgb(34, 31, 31);
+}
+
+/* Update message-content styling for better formatted content */
+.message-content {
+    margin-top: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    color: #1A1A1A;
+    padding: 0;
+}
+
+.message-content pre {
+    margin: 0.5em 0;
+    overflow-x: auto;
+}
+
+.message-content p {
+    margin: 0.5em 0;
+}
+
+.message-content p:first-child {
+    margin-top: 0;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Make blockquotes look nicer */
+.message-content blockquote {
+    border-left: 3px solid #dfe2e5;
+    margin-left: 0;
+    padding-left: 1em;
+    color: #6a737d;
+}
+
+/* Style tables in messages */
+.message-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.message-content th,
+.message-content td {
+    border: 1px solid #dfe2e5;
+    padding: 8px 12px;
+}
+
+.message-content th {
+    background-color: #f6f8fa;
+    font-weight: 600;
+}
+
+/* Style for AI messages specifically */
+.chat-message.ai .message-content {
+    color: #1A1A1A;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: normal;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.chat-message.ai .message-icon + .message-content {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Add styling for lists */
+.message-content ul,
+.message-content ol {
+    padding-left: 1.5em;
+    margin: 0.5em 0;
+}
+
+/* Style for code in AI messages */
+.chat-message.ai .message-content code:not(.hljs) {
+    background-color: rgba(27, 31, 35, 0.05);
+    border-radius: 3px;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    font-size: 85%;
+    padding: 0.2em 0.4em;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.input-container input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.token-info {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.loading-message {
+    color: #666;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Send button container and styling */
+.send-button-container {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+    z-index: 102;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-button {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgb(234, 244, 235);
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    z-index: 3;
+    overflow: hidden; /* Ensure loading dots stay within circle */
+}
+
+.send-button:hover {
+    background: rgb(214, 224, 215);
+}
+
+.send-button:disabled {
+    background: rgb(234, 244, 235); /* Keep light green even when disabled */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.send-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Animation for the loading dots within the send button */
+.send-button .loading-dots-container.small {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    gap: 3px;
+}
+
+.send-button .loading-dots-container.small .loading-dot {
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    animation: pulseInOut 1.8s infinite ease-in-out;
+}
+
+/* Custom animation for send button dots */
+@keyframes pulseInOut {
+    0%, 100% {
+        transform: scale(0.75);
+        opacity: 0.15;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Main loading container inside chat messages */
+.chat-message .loading-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    min-height: 100px;
+}
+
+/* Ensure loading dots are centered and properly sized in chat messages */
+.chat-message.ai .loading-dots-container.large {
+    gap: 15px;
+}
+
+/* Make the dots larger in chat messages */
+.chat-message.ai .loading-dots-container.large .loading-dot {
+    width: 25px;
+    height: 25px;
+}
+
+.messages-remaining {
+    display: flex;
+    align-items: center;
+    background-color: rgb(234, 244, 235);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: rgb(34, 31, 31);
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.messages-remaining .header-icon {
+    margin-right: 6px;
+    font-size: 16px;
+    color: #4285f4;
+}
+
+.chat-timestamp-banner {
+    background-color: rgb(234, 244, 235);
+    padding: 8px 16px;
+    margin: 20px 0 16px 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgb(91, 91, 92);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.chat-timestamp-banner svg {
+    margin-right: 8px;
+    color: rgb(91, 91, 92);
+}
+
+.history-mode-notice {
+    background-color: rgb(234, 244, 235);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: rgb(91, 91, 92);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Additional style for history mode notice when it should be sandwiched */
+.chat-messages-wrapper + .history-mode-notice {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: none;
+}
+
+.disabled-textarea {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.disabled-button {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.message-number-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    padding-left: 16px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+    height: 24px; /* Fixed height to ensure alignment */
+    line-height: 24px; /* Match the height */
+}
+
+.message-number-indicator svg {
+    font-size: 0.9rem;
+    margin-top: 0; /* Ensure no extra spacing */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    width: 16px; /* Fixed width for alignment */
+    height: 16px; /* Fixed height for alignment */
+}
+
+.message-number-indicator span {
+    line-height: 16px; /* Match the icon height */
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* For the first message, we don't want the top border */
+.chat-messages > .message-number-indicator:first-child {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Update the chat header styles to match the history header */
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    position: relative;
+    background-color: transparent;
+    z-index: 10;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-left {
+    /* Allow space for multiple buttons */
+    min-width: 100px;
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #555;
+}
+
+.bookmark-icon-active {
+    color: #ff9900 !important;
+}
+
+.chat-title-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 5;
+}
+
+.chat-title-container h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Times New Roman', serif;
+}
+
+.list-icon {
+    font-size: 14px;
+    color: #6c757d;
+    margin-right: 4px;
+}
+
+.action-icon {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.search-input {
+    background: transparent !important;
+    border: none !important;
+    flex: 1;
+    outline: none;
+    color: rgb(34, 31, 31);
+}
+
+/* Styling for focus state and placeholder */
+.chat-input textarea:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.3);
+}
+
+.chat-input textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* Hide scrollbar corner */
+.chat-input textarea::-webkit-scrollbar-corner {
+    background: transparent;
+    display: none;
+}
+
+.chat-input textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+/* Make sure any full-width elements are properly constrained */
+body > div, body > main, #root > div {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Add these styles for the header buttons layout */
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Ensure the profile container is properly aligned */
+.profile-container {
+    position: relative;
+}
+
+/* Update header styles to ensure proper layout */
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    position: relative;
+    background-color: transparent;
+    z-index: 10;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-left {
+    /* Allow space for multiple buttons */
+    min-width: 100px;
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #555;
+}
+
+/* Fix the profile menu styles that were removed */
+
+.profile-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.profile-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.profile-menu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: #FFFFF2;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    z-index: 1000;
+    min-width: 180px;
+}
+
+.profile-menu button {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.profile-menu button:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+/* Extra space to ensure loading indicator has proper padding */
+.user-message-spacing {
+    height: 20px;
+}
+
+.chat-input textarea:disabled {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #666;
+    cursor: not-allowed;
+    border-color: #ccc;
+}
+
+/* Add a pulsing outline effect when textarea is disabled due to loading */
+@keyframes pulse-border {
+    0% {
+        border-color: rgba(255, 153, 0, 0.4);
+        box-shadow: 0 0 0 1px rgba(255, 153, 0, 0.1);
+    }
+    50% {
+        border-color: rgba(255, 153, 0, 0.8);
+        box-shadow: 0 0 0 1px rgba(255, 153, 0, 0.3);
+    }
+    100% {
+        border-color: rgba(255, 153, 0, 0.4);
+        box-shadow: 0 0 0 1px rgba(255, 153, 0, 0.1);
+    }
+}
+
+.chat-input textarea:disabled {
+    animation: pulse-border 2s infinite;
+}
+
+/* Model Mode Selector Styles */
+.mode-selector-container {
+    position: absolute;
+    top: 16px;
+    right: 70px;
+    z-index: 1000;
+}
+
+.model-mode-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    font-size: 20px;
+}
+
+.model-mode-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.mode-icon {
+    font-size: 20px;
+}
+
+.model-mode-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #FFFFF2;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 1500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.mode-option {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.mode-option:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+.mode-option.selected {
+    background-color: rgba(255, 153, 0, 0.1);
+    color: #ff9900;
+}
+
+.mode-option .mode-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.mode-text {
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Message Mode Indicator Styles */
+.message-mode-indicator {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem; /* Match message-number-indicator */
+    color: #666;
+    padding: 0 16px; /* Match message-number-indicator padding-left and remove top/bottom padding */
+    background-color: transparent; /* Remove background for better alignment */
+    margin-top: 4px;
+    margin-bottom: 8px;
+    height: 24px; /* Fixed height to match message-number-indicator */
+    line-height: 24px; /* Match height */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Add emphasis to the mode indicator when viewing history */
+.chat-messages-wrapper.sandwich-bottom .message-mode-indicator {
+    font-weight: 500;
+    color: #444;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0 16px;
+}
+
+.message-mode-indicator svg {
+    color: #4285f4;
+    margin-right: 6px; /* Match gap in message-number-indicator */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    width: 16px; /* Match size with message-number-indicator icon */
+    height: 16px; /* Match size with message-number-indicator icon */
+    font-size: 0.9rem; /* Match with message-number-indicator icon */
+}
+
+.mode-label {
+    font-weight: 500;
+    margin-right: 4px;
+    line-height: 16px; /* Match the icon height */
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+}
+
+.mode-icon.auto-icon {
+    font-size: 16px;
+    color: #4285f4;
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+}
+
+.mode-icon.math-icon {
+    font-size: 16px;
+    color: #ff9900;
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+}
+
+.mode-icon.default-icon {
+    font-size: 16px;
+    color: #34a853;
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+}
+
+.mode-name {
+    font-weight: 500;
+    color: #333;
+    line-height: 16px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.spacer {
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    height: 16px;
+}
+
+/* Ensure mode indicator is properly positioned */
+.message-number-indicator + .message-mode-indicator {
+    margin-top: 4px;
+    border-top: none; /* Remove any border */
+    padding-top: 0; /* Remove top padding */
+}
+
+/* Model Mode Box Styles */
+.chat-header-box {
+    position: absolute;
+    top: -46px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 24px;
+    background-color: #E2E2C9;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    z-index: 9;
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+}
+
+.model-mode-box {
+    position: relative;
+    z-index: 100;
+}
+
+.model-mode-button-rect {
+    display: flex;
+    align-items: center;
+    background-color: rgb(234, 244, 235);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: rgb(34, 31, 31);
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.model-mode-button-rect:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.model-mode-button-rect .header-icon {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+.model-mode-button-rect .mode-label {
+    font-weight: 500;
+    margin-right: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.model-mode-button-rect .mode-text {
+    margin-left: 4px;
+    margin-right: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.model-mode-button-rect .dropdown-arrow {
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.model-mode-button-rect .mode-icon {
+    font-size: 16px;
+    margin: 0 4px;
+}
+
+.model-mode-button-rect .auto-icon {
+    color: #4285f4;
+}
+
+.model-mode-button-rect .default-icon {
+    color: #34a853;
+}
+
+.model-mode-button-rect .math-icon {
+    color: #ff9900;
+}
+
+.model-mode-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #FFFFF2;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 1500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Loading Dots Container styles for AI responses */
+.loading-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.loading-dots-container.large {
+    gap: 15px;
+    padding: 30px 0;
+}
+
+.loading-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff9900;
+    border-radius: 50%;
+    animation: bounceAnimation 1.8s infinite ease-in-out;
+}
+
+.loading-dots-container.large .loading-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #ff9900;
+}
+
+@keyframes bounceAnimation {
+    0%, 100% {
+        transform: scale(0.75);
+        opacity: 0.15;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* When inside sandwich-bottom, adjust padding */
+.sandwich-bottom .chat-messages {
+    padding-bottom: 10px;
+}
+
+/* Add general selector to catch all cases */
+.model-mode-box button,
+.model-mode-box span,
+.model-mode-box div {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Math processor styles for calculus solutions */
+.calculus-solution .math-processor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.calculus-solution .katex-display {
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px 0;
+}
+
+.calculus-solution .katex {
+  font-size: 1.15em;
+  line-height: 1.5;
+}
+
+.calculus-solution .MathJax {
+  font-size: 1.15em !important;
+}
+
+/* Add spacing between equation steps */
+.math-processor .block-math + .block-math {
+  margin-top: 12px;
+}
+
+/* Indent integration steps for better readability */
+.math-processor .block-math:not(:first-child) {
+  margin-left: 15px;
+}
+
+/* Adjust font sizes for calculus expressions */
+.math-processor .katex-html {
+  font-size: 16px;
+}
+
+/* Make fractions more readable */
+.math-processor .katex .frac-line {
+  border-bottom-width: 0.08em;
+}
+
+.math-processor .katex .mfrac .frac-line {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+/* Better rendering for integration symbols */
+.math-processor .katex .mop {
+  margin-right: 0.1em;
+}
+
+/* Improve spacing around operators */
+.math-processor .katex .mbin {
+  margin-left: 0.15em;
+  margin-right: 0.15em;
+}
+
+/* Better spacing for dx in integrals */
+.math-processor .katex .mspace {
+  margin-right: 0.1em !important;
+}
+
+/* ChatGPT-style math processor styles - Updated to match screenshot exactly */
+.chatgpt-style {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  color: #1A1A1A;
+  margin: 0;
+  padding: 0;
+}
+
+/* Text styling to match ChatGPT */
+.chatgpt-style .text-content {
+  text-align: left;
+  margin-bottom: 0.9rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1A1A1A;
+  width: 100%;
+}
+
+/* First paragraph styling - "Sure! Let's solve the integral:" */
+.chatgpt-style .text-content:first-child {
+  margin-top: 0;
+  margin-bottom: 1.1rem;
+  font-weight: 400;
+  color: #1A1A1A;
+}
+
+/* "We integrate term by term:" text */
+.chatgpt-style .text-content:nth-child(3) {
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+/* "Putting it all together:" text */
+.chatgpt-style .text-content:contains("Putting it all together") {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 400;
+}
+
+/* "Where C is the constant of integration" text */
+.chatgpt-style .text-content:contains("Where") {
+  margin-top: 0.8rem;
+  margin-bottom: 1.2rem;
+  font-weight: 400;
+  color: #1A1A1A;
+}
+
+/* "Final Answer:" text */
+.chatgpt-style .text-content:contains("Final Answer") {
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+/* Style numbered steps exactly like ChatGPT */
+.chatgpt-style .step-number {
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: #1A1A1A;
+  font-size: 1rem;
+}
+
+/* Numbered equations styling */
+.chatgpt-style .step-equation {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Main integral display */
+.chatgpt-style .katex-display {
+  margin: 0.5rem 0 1.2rem 0;
+  text-align: center !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Final answer equation styling */
+.chatgpt-style .block-math-render:last-child {
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 0.7rem 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin-bottom: 0.5rem;
+}
+
+/* Override previous styles to center the integral equations like ChatGPT */
+.chatgpt-style .katex-display > .katex {
+  text-align: center !important;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fix font styles for consistency */
+.chatgpt-style .katex {
+  font-family: KaTeX_Main, 'Times New Roman', serif;
+  font-size: 1.15rem;
+}
+
+/* Improved overall message container styling */
+.chat-message.ai .message-content {
+  color: #1A1A1A;
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: normal;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.chat-message.ai .message-icon + .message-content {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Add spacing after the last math element */
+.chatgpt-style .block-math-render:last-of-type {
+  margin-bottom: 0.5rem;
+}
+
+/* Style the inline C variable in "Where C is..." */
+.chatgpt-style .text-content .katex {
+  vertical-align: middle;
+  font-size: 1rem;
+}
+
+/* Message content container to match ChatGPT */
+.message-content {
+  margin-top: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  color: #1A1A1A;
+  padding: 0;
+}
+
+/* Special styling for math responses to match ChatGPT */
+.message-content.math-response {
+  padding: 0;
+  background-color: transparent;
+  color: #1A1A1A;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  margin-top: 0;
+}
+
+/* Ensure math content is centered properly */
+.message-content.math-response .chatgpt-style {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Style main integral display like in ChatGPT */
+.message-content.math-response .main-integral {
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Style the final answer box like ChatGPT */
+.message-content.math-response .final-answer {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0.25rem;
+  padding: 0.7rem 0.5rem;
+  margin: 0.7rem 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+/* Ensure Katex fonts render correctly */
+.message-content.math-response .katex {
+  font-family: KaTeX_Main, 'Times New Roman', serif;
+}
+
+/* Remove any existing padding or styling from the message-content that might interfere */
+.chat-message.ai .message-content.math-response {
+  padding: 0;
+  overflow: visible;
+}
+
+/* Ensure the math processor takes full width */
+.message-content.math-response .math-processor {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Override any text styling to match ChatGPT */
+.message-content.math-response .text-content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1A1A1A;
+  margin-bottom: 0.8rem;
+}
+
+/* Ensure proper spacing between sections */
+.message-content.math-response .block-math-render {
+  margin: 0.6rem 0;
+}
+
+/* Fix equation formatting issues, particularly for step 2 */
+.chatgpt-style .step-equation .katex-display {
+  text-align: left !important;
+  margin-left: 1.5rem;
+}
+
+/* Ensure correct fraction styling */
+.chatgpt-style .katex .mfrac {
+  vertical-align: middle;
+}
+
+/* Make fractions more readable */
+.chatgpt-style .katex .mfrac .frac-line {
+  border-bottom-width: 0.1em !important;
+  border-color: #000;
+}
+
+.chatgpt-style .katex .mfrac .frac-line + .mfrac-denominator {
+  padding-top: 0.15em !important;
+}
+
+/* Consistent spacing for equations in all numbered steps */
+.chatgpt-style .step-number + .step-equation {
+  margin-left: 1.5rem !important; 
+  margin-bottom: 1rem !important;
+  display: block;
+}
+
+/* Ensure spacing between all blocks is consistent */
+.chatgpt-style .text-content + .block-math-render,
+.chatgpt-style .block-math-render + .text-content {
+  margin-top: 1rem;
+}
+
+/* Fix spacing for the second step specifically */
+.chatgpt-style .step-number:nth-of-type(2) + .step-equation .katex-display {
+  margin-left: 1.5rem !important;
+}
+
+/* Fix step 2 equation placement */
+.chatgpt-style .step-number:nth-of-type(2) + .step-equation .mfrac {
+  vertical-align: middle !important;
+}
+
+/* Better spacing in equals signs */
+.chatgpt-style .katex .mrel {
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+}
+
+/* Handle negative signs better */
+.chatgpt-style .katex .mord.mtight.mo {
+  margin-right: 0.05em;
+}
+
+/* Ensure display mode equations are properly centered */
+.chatgpt-style .katex-display:not(.step-equation .katex-display) > .katex {
+  margin: 0 auto;
+}
+
+/* Better styling for the entire math processor container */
+.math-processor.calculus-solution.chatgpt-style {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem 0;
+}
+
+/* Use dfrac for larger, more readable fractions */
+.chatgpt-style .katex .mfrac.dfrac .frac-line {
+  border-bottom-width: 0.12em !important;
+}
+
+.chatgpt-style .katex .mfrac.dfrac .frac-line + .mfrac-denominator {
+  padding-top: 0.15em !important;
+}
+
+/* Fix the spacing for AI message wrapper to eliminate extra newlines */
+.ai-message-wrapper {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove any whitespace from MathProcessor when it's the first child */
+.ai-message-wrapper > .math-processor:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Remove any whitespace from MarkdownRenderer when it's the first child */
+.ai-message-wrapper > .markdown-content:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Ensure no padding within the AI message content */
+.chat-message.ai .message-content {
+  padding: 0;
+  margin: 0;
+  white-space: normal;
+}
+
+/* Fix for matrices and math content in AI messages */
+.chat-message.ai.contains-matrix .message-content {
+    overflow: visible !important;
+    max-width: 100%;
+    white-space: normal !important;
+}
+
+.message-content.math-content {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    white-space: normal !important;
+    max-width: 100%;
+}
+
+.message-content.math-content .math-processor {
+    overflow: visible !important;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal !important;
+}
+
+.message-content.math-content .katex-display {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    max-width: 100%;
+    width: 100%;
+    white-space: normal !important;
+}
+
+.message-content.math-content .katex {
+    max-width: 100%;
+    word-break: break-word;
+    white-space: normal !important;
+}
+
+.message-content.math-content .katex-html {
+    overflow: visible !important;
+    white-space: normal !important;
+    max-width: 100%;
+}
+
+.message-content.math-content .katex .mtable {
+    white-space: normal !important;
+    width: auto !important;
+    margin: 0 auto;
+    table-layout: auto !important;
+    border-collapse: separate !important;
+    border-spacing: 1px !important;
+}
+
+.message-content.math-content .katex .mtable .mtr {
+    display: table-row !important;
+}
+
+.message-content.math-content .katex .mtable .mtd {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+    padding: 0.2em 0.5em !important;
+}
+
+/* Make sure the brackets for matrices don't create overflow */
+.message-content.math-content .katex .mtable .vlist {
+    overflow: visible !important;
+}
+
+.message-content.math-content .katex .delimsizing {
+    overflow: visible !important;
+}
+
+/* Ensure equations aren't unnecessarily wrapped */
+.message-content.math-content .math-block-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+    margin: 1em 0;
+}
+
+/* Make sure AI messages with matrices adjust properly */
+.chat-message.ai .message-content.math-content .math-processor {
+    word-break: normal;
+    overflow-wrap: break-word;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ensure no horizontal scrolling in the message */
+.chat-message.ai.contains-matrix {
+    overflow-x: visible !important;
+    max-width: 100%;
+}

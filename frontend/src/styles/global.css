@@ -1,0 +1,325 @@
+/* Reset all scrollbar-related properties */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Global font fix - ensure every possible element uses system fonts */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, button, input, textarea, select {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Set global background color and prevent overflow */
+html {
+  /* OFF-WHITE COLOR PALETTE */
+  background-color: #FFFFE4;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  background-color: #FFFFE4;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  /* Hide vertical scrollbar completely */
+  overflow-x: hidden;
+  max-width: 100vw;
+  /* Remove all scrollbar styling */
+  appearance: none;
+  -webkit-appearance: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Completely hide scrollbar for Webkit browsers */
+body::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+}
+
+/* Only use default browser scrollbar for content */
+#root {
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure all direct children of body have limited width */
+body > * {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Remove all custom scrollbar styles for the body */
+body::-webkit-scrollbar {
+  width: auto;
+  background: transparent;
+}
+
+/* Force icon buttons to use our styling */
+.icon-button, 
+.profile-button,
+.back-button {
+  background-color: rgb(234, 244, 235) !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.icon-button:hover, 
+.profile-button:hover,
+.back-button:hover {
+  background-color: rgb(214, 224, 215) !important;
+}
+
+/* Header icons color override */
+.header-icon {
+  color: #333 !important;
+}
+
+/* Bookmark active state */
+.bookmark-icon-active {
+  color: #ff9900 !important;
+}
+
+/* Consistent section styling */
+.implementation-section,
+.about-section,
+.chat-item,
+.messages-remaining,
+.chat-timestamp-banner,
+.history-mode-notice,
+.tab:hover,
+.search-input-wrapper,
+.search-bar input {
+  background-color: rgb(234, 244, 235) !important;
+}
+
+/* Search button styling - keep original */
+.search-button,
+.search-bar button {
+  background-color: #007bff !important;
+  color: white !important;
+  border: none !important;
+}
+
+.search-button:hover,
+.search-bar button:hover {
+  background-color: #0069d9 !important;
+}
+
+/* Tooltip styling using data-tooltip instead of title */
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Apply positioning to a.back-button (Link components) */
+a.back-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: rgb(234, 244, 235) !important;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+/* Hover effect for Link back buttons */
+a.back-button:hover {
+  transform: scale(1.1);
+  background-color: rgb(214, 224, 215) !important;
+}
+
+/* Ensure Link tooltips have proper positioning */
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;  /* Position below the element */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-top: 5px; /* Space between button and tooltip */
+  pointer-events: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Add subtle animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Improved button hover effects */
+.icon-button {
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+  background-color: rgb(214, 224, 215) !important;
+}
+
+.profile-button {
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.profile-button:hover {
+  transform: scale(1.1);
+  background-color: rgb(214, 224, 215) !important;
+}
+
+.back-button {
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+  background-color: rgb(214, 224, 215) !important;
+}
+
+/* Consistent hover effect for buttons (except search button) */
+.icon-button:hover, 
+.profile-button:hover,
+.back-button:hover {
+  background-color: rgb(214, 224, 215) !important;
+}
+
+/* Chat input area specific color */
+.chat-input {
+  background: #E2E2C9 !important;
+}
+
+/* Profile menu dropdown styling */
+.profile-menu {
+  background: #FFFFF2 !important; /* Match chat messages background */
+}
+
+.profile-menu button:hover {
+  background-color: rgb(234, 244, 235) !important; /* Match our light green hover style */
+}
+
+/* Global color variables */
+:root {
+  --app-black: rgb(34, 31, 31);
+  --app-background: #FFFFE4;
+  --app-highlight: rgb(234, 244, 235);
+  --app-accent-blue: #4285f4;
+  --app-accent-orange: #ff9900;
+}
+
+/* Default text color for the entire app */
+body {
+  color: var(--app-black);
+}
+
+/* Final override for any remaining instances of black */
+[style*="color: black"],
+[style*="color: #000"],
+[style*="color:#000"],
+.color-black {
+  color: var(--app-black) !important;
+}
+
+/* Apply the new black shade to all text */
+body, h1, h2, h3, h4, h5, h6, p, span, div, li, a, button {
+  color: var(--app-black);
+}
+
+/* Override any pure black colors in the app with our custom black */
+.implementation-title-container h2,
+.chat-title-container h2,
+.profile-menu button,
+.message,
+.about-title-container h2,
+.about-content p,
+.about-content h3,
+.chat-container h2,
+.chat-history-container h2 {
+  color: var(--app-black) !important;
+}
+
+/* Replace any #333 colors with our custom black */
+.back-button .header-icon,
+.implementation-section h3,
+.messages-remaining,
+.chat-timestamp-banner,
+.history-mode-notice,
+.profile-menu button,
+.about-section h3,
+.chat-section h3,
+[class*="color-333"],
+[style*="color: #333"] {
+  color: rgb(34, 31, 31) !important;
+}
+
+/* Ensure search input is transparent to show the green background */
+.search-input {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Implementation page title colors */
+.implementation-container[data-type="ai"] .page-header-content span {
+  color: var(--app-accent-blue) !important;
+}
+
+.implementation-container[data-type="aws"] .page-header-content span {
+  color: var(--app-accent-orange) !important;
+}
+
+/* More specific styling for back buttons on auth pages */
+.back-button svg,
+a.back-button svg {
+  color: rgb(34, 31, 31) !important;
+  font-size: 20px;
+}
+
+/* Style consistency for all tooltips */
+[data-tooltip]:hover::after {
+  font-weight: 400;
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+/* Add specific overrides for model mode components */
+.model-mode-button-rect,
+.model-mode-dropdown,
+.mode-option,
+.mode-text,
+.mode-label,
+.mode-name,
+.message-mode-indicator,
+.model-mode-box,
+.model-mode-box * {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}

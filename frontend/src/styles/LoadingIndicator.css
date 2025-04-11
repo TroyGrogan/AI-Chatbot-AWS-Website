@@ -1,0 +1,243 @@
+/* 
+ * LoadingIndicator.css
+ * 
+ * IMPORTANT: The animations in this file are synchronized with animations in Chat.css.
+ * The animation timing, duration, and easing need to be identical for visual harmony:
+ * 
+ * 1. Both circular and horizontal loading indicators use 1.8s duration
+ * 2. Both use ease-in-out timing function
+ * 3. The delay patterns are synchronized:
+ *    - Horizontal dots use: 0s, 0.3s, 0.6s, 0.9s, 1.2s
+ *    - Circular dots map to these same delay groups
+ * 4. The scale and opacity values match: scale(0.75) to scale(1), opacity 0.15 to 1
+ * 
+ * We use two different animations with identical timing values:
+ * - fadeInOut: For circular dots (includes translate(-50%, -50%) for positioning)
+ * - fadeInOutHorizontal: For horizontal dots (no translate, just scaling)
+ * 
+ * If you modify any animation values, be sure to update them consistently across
+ * BOTH animations to maintain the synchronized pulsing effect.
+ */
+
+/* Add circular spinner styles for the send button */
+.circular-spinner-container {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transform-origin: center;
+  background-color: transparent;
+  border-radius: 50%;
+ }
+ 
+ 
+ .circular-dot {
+  position: absolute;
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background-color: #ff9900;
+  filter: blur(0.3px);
+  box-shadow: 0 0 3px rgba(255, 153, 0, 0.4);
+  opacity: 0;
+  transition: transform 0.2s ease-in-out;
+  transform: translate(-50%, -50%);
+  /* Use the same animation as horizontal dots */
+  animation: fadeInOut 1.8s infinite ease-in-out;
+ }
+
+/* Pulse animation for the dots - no longer needed as we're using fadeInOut */
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+ 
+ 
+ /* Continuous rotation of the spinner container */
+ @keyframes rotateContainer {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+ }
+ 
+ 
+ /* Adjust button styling to accommodate the circular loading indicator */
+ .send-button .circular-spinner-container {
+  transform: scale(0.9);
+ }
+ 
+ 
+ .send-button:disabled .circular-spinner-container {
+  opacity: 0.8;
+ }
+ 
+ 
+ .loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ 
+ 
+ .loader {
+  border: 3px solid #f3f3f3; /* Light grey */
+  border-top: 3px solid #ff9900; /* Amazon orange */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+ }
+ 
+ 
+ /* Standard size for main loading indicators */
+ .loader.standard {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+  margin: 10px;
+ }
+ 
+ 
+ @keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+ }
+ 
+ 
+ /* When the loader is used as a small button spinner */
+ .loader.small {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+  margin: 0;
+ }
+ 
+ 
+ /* Loading dots container */
+ .loading-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: transparent;
+ }
+ 
+ 
+ /* Large size for main indicators */
+ .loading-dots-container.large {
+  gap: 12px;
+ }
+ 
+ 
+ /* Small size for button indicators */
+ .loading-dots-container.small {
+  gap: 4px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+ }
+ 
+ 
+ /* Individual dot styling */
+ .loading-dot {
+  /* Use Amazon orange color */
+  background-color: #ff9900;
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0 6px rgba(255, 153, 0, 0.6);
+ }
+ 
+ 
+ /* Large size dots */
+ .loading-dots-container.large .loading-dot {
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.7);
+ }
+ 
+ 
+ /* Small size dots for the send button */
+ .loading-dots-container.small .loading-dot {
+  width: 4px;
+  height: 4px;
+  background-color: white; /* Keep white for send button dots */
+ }
+ 
+ 
+ /* Animation for each dot with different delays */
+ .loading-dot {
+  animation: fadeInOutHorizontal 1.8s infinite ease-in-out;
+ }
+ 
+ 
+ .dot1 {
+  animation-delay: 0s;
+ }
+ 
+ 
+ .dot2 {
+  animation-delay: 0.3s;
+ }
+ 
+ 
+ .dot3 {
+  animation-delay: 0.6s;
+ }
+ 
+ 
+ .dot4 {
+  animation-delay: 0.9s;
+ }
+ 
+ 
+ .dot5 {
+  animation-delay: 1.2s;
+ }
+ 
+ 
+ /* Fade in and out animation with scaling for dots - tuned to match exactly */
+ @keyframes fadeInOut {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.75);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+ }
+
+/* Create a separate animation for the horizontal dots that doesn't include translate */
+@keyframes fadeInOutHorizontal {
+  0%, 100% {
+    transform: scale(0.75);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+ 

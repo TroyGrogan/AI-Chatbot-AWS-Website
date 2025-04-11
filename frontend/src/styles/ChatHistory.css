@@ -1,0 +1,1091 @@
+.chat-history-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    background-color: transparent; /* Allow global background to show through */
+    min-height: 100vh;
+}
+
+.search-bar {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    background-color: rgb(234, 244, 235); /* Light green color */
+    color: #333;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-bar button:hover {
+    background-color: #0069d9;
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    min-height: 200px;
+    position: relative;
+}
+
+.chat-item {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: rgb(234, 244, 235); /* Light green color */
+    cursor: pointer;
+    transition: background-color 0.2s ease-out;
+    position: relative;
+}
+
+.chat-item:hover {
+    background-color: rgb(214, 224, 215); /* Slightly darker green */
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff5252;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.user-message, .ai-response {
+    margin: 8px 0;
+}
+
+.error-message {
+    color: #ff5252;
+    padding: 10px;
+    background-color: #ffeeee;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.loading-message, .no-chats-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.sign-out-btn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.back-button,
+.new-chat-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: rgb(234, 244, 235) !important; /* Light green color */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: rgb(214, 224, 215) !important; /* Slightly darker green */
+}
+
+.new-chat-button:hover {
+    background-color: rgb(214, 224, 215) !important; /* Slightly darker green */
+}
+
+.chat-item {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chat-item:hover {
+    background: #f5f5f5;
+}
+
+/* Profile menu styles */
+.profile-container {
+    position: relative;
+}
+
+.profile-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.profile-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.profile-menu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: #FFFFF2;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    z-index: 1000;
+    min-width: 180px;
+}
+
+.profile-menu button {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.profile-menu button:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+.chat-timestamp {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.chat-timestamp svg {
+    margin-right: 4px;
+}
+
+/* Add these styles to your existing ChatHistory.css */
+
+/* Title container styling */
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.chat-title {
+    font-size: 1.2rem;
+    margin: 0 0 8px 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    line-height: 1.3;
+    max-height: 3.1rem; /* Allows for approximately 2 lines of text */
+}
+
+.rename-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.rename-btn:hover {
+    opacity: 1;
+}
+
+/* Title editing mode */
+.title-edit-container {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.title-edit-input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    transition: background-color 0.2s ease;
+}
+
+.title-edit-buttons {
+    display: flex;
+    margin-left: 8px;
+}
+
+.title-save-btn,
+.title-cancel-btn {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-save-btn {
+    color: #28a745;
+}
+
+.title-cancel-btn {
+    color: #dc3545;
+}
+
+/* Styling for preview messages */
+.preview-message,
+.preview-response {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Add these to your existing ChatHistory.css */
+
+.bookmarked {
+    border-left: 3px solid gold;
+}
+
+.bookmark-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    padding: 0;
+    font-size: 1.2rem;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.bookmark-btn:hover {
+    color: #555;
+}
+
+.bookmark-icon-active {
+    color: #ff9900 !important; /* AWS orange color */
+}
+
+.chat-actions {
+    display: flex;
+    align-items: center;
+}
+
+.bookmark-filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.bookmark-filter.active {
+    background: #fff8dc;
+    border-color: gold;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+}
+
+/* Adjust header to fit new buttons */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-left {
+    /* Allow space for multiple buttons */
+    min-width: 100px;
+}
+
+.header-right {
+    width: auto; /* Allow the right side to fit multiple buttons */
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    z-index: 10;
+    width: 42px;
+    height: 42px;
+}
+
+.back-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.history-title-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 5;
+}
+
+.history-title-container h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Times New Roman, serif';
+}
+
+.title-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.rename-btn, .bookmark-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+.rename-btn:hover, .bookmark-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.bookmarked {
+    border-left: 3px solid #007bff;
+}
+
+/* Restore the original styling for tabs and search */
+
+.tabs-container {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.tab {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.active-tab {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.active-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #007bff;
+    border-radius: 3px 3px 0 0;
+}
+
+.tab:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+.chat-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.chat-timestamp, .message-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.message-count {
+    color: #666;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.bookmark-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bookmark-btn {
+    color: #555;
+    font-size: 16px;
+}
+
+.delete-btn {
+    color: #ff4d4f;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.delete-btn:hover {
+    color: #ff1f1f;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rename-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rename-btn:hover {
+    color: #333;
+}
+
+/* Updated ChatHistory.css */
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-right {
+    width: auto; /* Allow the right side to fit multiple buttons */
+}
+
+.back-button {
+    display: none;
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+/* Search styling */
+.search-container {
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: rgb(234, 244, 235) !important; /* Light green color */
+    border-radius: 20px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.search-icon {
+    color: rgb(34, 31, 31);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent !important;
+    padding: 10px 0;
+    font-size: 14px;
+    outline: none;
+    color: rgb(34, 31, 31);
+}
+
+.search-button {
+    background-color: #007bff !important;
+    color: white !important;
+    border: none;
+    border-radius: 20px;
+    padding: 0 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.search-button:hover {
+    background-color: #0069d9;
+}
+
+/* Tabs styling */
+.tabs-container {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.tab {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    color: rgb(34, 31, 31); /* Changed from #333 */
+    transition: all 0.2s ease;
+}
+
+.active-tab {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.active-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #007bff;
+    border-radius: 3px 3px 0 0;
+}
+
+.tab:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+/* Chat item styling */
+.chat-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-item:hover {
+    background-color: #f9f9f9;
+}
+
+.bookmarked {
+    border-left: 3px solid #007bff;
+}
+
+.chat-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.chat-timestamp {
+    color: #888;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ff4d4f;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.delete-btn:hover {
+    color: #ff1f1f;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.title-and-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0; /* Ensures text truncation works properly */
+    overflow: hidden;
+}
+
+.chat-title {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(34, 31, 31); /* Changed from #333 */
+}
+
+.title-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.rename-btn, .bookmark-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+.rename-btn:hover, .bookmark-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.preview-message, .preview-response {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Edit title styling */
+.title-edit-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.title-edit-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.title-edit-buttons {
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+.title-save-btn, .title-cancel-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-save-btn {
+    color: #52c41a;
+}
+
+.title-cancel-btn {
+    color: #ff4d4f;
+}
+
+/* Messages for feedback */
+.error-message {
+    color: #ff4d4f;
+    padding: 10px 20px;
+}
+
+.loading-message, .no-chats-message {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+/* Updated styling for horizontal action buttons */
+
+.chat-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.title-and-text {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.chat-actions-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.rename-btn:hover {
+    color: #007bff;
+}
+
+.bookmark-btn:hover {
+    color: #007bff;
+}
+
+.delete-btn:hover {
+    color: #ff4d4f;
+}
+
+.bookmark-icon-active {
+    color: #ff9900 !important; /* AWS orange color */
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #555;
+}
+
+.action-icon {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.list-icon {
+    font-size: 14px;
+    color: #6c757d;
+    margin-right: 4px;
+}
+
+/* Add these styles for the saving state and indicator */
+.title-save-btn.saving {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.saving-indicator {
+    display: inline-block;
+    animation: pulse 1.5s infinite ease-in-out;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.title-edit-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.title-cancel-btn:disabled, 
+.title-save-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Prevent unwanted page jumps */
+.chat-list {
+    min-height: 200px;
+    position: relative;
+}
+
+.chat-item {
+    position: relative;
+    transition: background-color 0.2s ease-out;
+}
+
+.title-edit-container {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+}
+
+.title-edit-input {
+    transition: background-color 0.2s ease;
+}
+
+/* Enhance the overall container stability */
+.chat-history-container {
+    min-height: 100vh;
+}
+
+/* Update header styles to match Chat.jsx */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-left {
+    /* Allow space for multiple buttons */
+    min-width: 100px;
+}
+
+.profile-container {
+    position: relative;
+}
+
+.profile-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgb(234, 244, 235);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.profile-button:hover {
+    background-color: rgb(214, 224, 215);
+}
+
+.profile-menu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: #FFFFF2;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    z-index: 1000;
+    min-width: 180px;
+}
+
+.profile-menu button {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.profile-menu button:hover {
+    background-color: rgb(234, 244, 235);
+}
+
+.preview-mode {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.preview-mode span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.preview-mode span[title="Automatic"] {
+    color: #4285f4;
+    font-size: 0.9rem;
+}
+
+.preview-mode span[title="Math Reasoning Mode"] {
+    color: #ff9900;
+}
+
+.preview-mode span[title="Default Mode"] {
+    color: #34a853;
+}

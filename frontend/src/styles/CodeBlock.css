@@ -1,0 +1,104 @@
+/* Styles for the CodeBlock component - Minimalist/ChatGPT-like */
+
+.code-block-container {
+    position: relative;
+    margin: 1em 0; /* Keep vertical spacing */
+    /* Remove background and border from the main container */
+    /* background-color: #1e1e1e; */
+    border-radius: 6px; /* Keep for header and code area rounding */
+    overflow: hidden; /* Keep for rounding */
+}
+
+.code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Keep distinct header background */
+    padding: 6px 12px;
+    font-size: 0.85em;
+    color: #ccc;
+    /* Remove bottom border, background applied to pre below handles separation */
+    /* border-bottom: 1px solid #444; */
+    border-top-left-radius: 6px; /* Round top corners */
+    border-top-right-radius: 6px;
+}
+
+.language-name {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-transform: lowercase;
+    color: #FFFFF2; /* Set language name color */
+}
+
+.copy-button {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    position: relative;
+    font-weight: bold;
+    text-transform: lowercase;
+    /* Keep default color for light theme fallback */
+}
+
+.copy-button:hover {
+    color: #fff;
+}
+
+.copy-button .copy-tooltip {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    font-size: 0.8em;
+}
+
+.copy-button:hover .copy-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Style the SyntaxHighlighter's pre element directly */
+.code-block-container pre {
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace !important;
+    font-size: 0.9em !important;
+    line-height: 1.5 !important;
+    background-color: #1e1e1e !important; /* Apply dark background here */
+    color: #d4d4d4 !important; /* Default text color for vscDarkPlus */
+    padding: 12px !important;
+    margin: 0 !important; /* Remove default margins */
+    overflow: auto; /* Add scrollbars if content overflows */
+    border-bottom-left-radius: 6px; /* Round bottom corners */
+    border-bottom-right-radius: 6px;
+}
+
+/* Ensure code tag inside pre doesn't override background/padding */
+.code-block-container pre code {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+/* Style line numbers */
+.code-block-container code span[style*="float: left"] {
+    display: inline-block; /* Needed for width and alignment */
+    color: #858585 !important; /* Grey color for line numbers */
+    width: 2.5em !important; /* Adjust width for line numbers */
+    padding-right: 1em !important; /* Space between numbers and code */
+    margin-right: 0.5em !important; /* Small gap after padding */
+    user-select: none; /* Prevent selecting line numbers */
+    text-align: right;
+} 

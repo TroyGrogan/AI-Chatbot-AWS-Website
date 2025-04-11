@@ -1,0 +1,434 @@
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    background-color: transparent;
+}
+
+.about-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    height: 60px;
+    z-index: 10;
+}
+
+.about-title-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 5;
+}
+
+.about-title-container h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #000;
+    font-weight: 700;
+    font-family: 'Times New Roman, serif';
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgb(234, 244, 235) !important; /* Light green color */
+    cursor: pointer;
+    z-index: 10;
+    width: 42px;
+    height: 42px;
+    margin-right: auto;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: rgb(214, 224, 215) !important; /* Slightly darker green */
+}
+
+.back-button .header-icon {
+    color: #333 !important; /* Darker text for better visibility */
+}
+
+.right-placeholder {
+    width: 40px;
+    margin-left: auto;
+}
+
+.about-content {
+    padding: 10px;
+}
+
+.about-creator {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.creator-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 25px;
+}
+
+.about-section {
+    margin-bottom: 30px;
+    background-color: rgb(234, 244, 235); /* Light green color */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.about-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.about-section p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.about-section a {
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px dashed #007bff;
+    padding-bottom: 1px;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.about-section a:hover {
+    color: #0056b3;
+    border-bottom: 1px solid #0056b3;
+}
+
+.about-section ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.about-section li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.implementation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.implementation-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.implementation-btn:hover {
+    transform: translateY(-2px);
+}
+
+.ai-btn {
+    background-color: #4285f4;
+    color: white;
+}
+
+.ai-btn:hover {
+    background-color: #3367d6;
+}
+
+.aws-btn {
+    background-color: #ff9900;
+    color: white;
+}
+
+.aws-btn:hover {
+    background-color: #e88b00;
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #555;
+}
+
+/* Account Settings Styles */
+.account-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.account-tab {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.account-tab.active {
+    background-color: #4285f4;
+    color: white;
+}
+
+.account-tab:hover:not(.active) {
+    background-color: #d1d1d1;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #4285f4;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+}
+
+.account-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.account-button:hover:not(:disabled) {
+    background-color: #3367d6;
+}
+
+.account-button:disabled {
+    background-color: #a0b4d6;
+    cursor: not-allowed;
+}
+
+.account-button.aws-button {
+    background-color: #ff9900;
+    color: white;
+}
+
+.account-button.aws-button:hover:not(:disabled) {
+    background-color: #e88b00;
+}
+
+.account-button.aws-button:disabled {
+    background-color: rgba(255, 153, 0, 0.6);
+    cursor: not-allowed;
+}
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Password input container styles */
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-input-container input {
+    flex: 1;
+    padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle-icon:hover {
+    color: #333;
+}
+
+/* Password validation feedback */
+.password-match-indicator {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.password-match-indicator.match {
+    color: #28a745;
+}
+
+.password-match-indicator.no-match {
+    color: #dc3545;
+}
+
+.error-input {
+    border-color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+.password-requirements {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 3px solid #4285f4;
+    font-size: 0.85rem;
+}
+
+.password-requirements p {
+    margin: 0 0 5px 0;
+    font-weight: 600;
+    color: #495057;
+}
+
+.password-requirements ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.password-requirements li {
+    margin-bottom: 3px;
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .about-container {
+        padding: 15px;
+    }
+    
+    .about-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .implementation-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .account-tabs {
+        flex-direction: column;
+    }
+    
+    .account-form {
+        gap: 10px;
+    }
+}
+
+/* Math example styling */
+.math-example {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: rgba(234, 244, 235, 0.5);
+    border-radius: 8px;
+    border-left: 3px solid #4285f4;
+}
+
+.math-example h4 {
+    margin-top: 0;
+    color: #4285f4;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Style for the creator name link */
+.creator-link {
+    display: inline-block; /* Allows transform to work */
+    transition: transform 0.2s ease-in-out; /* Smooth transition for hover effect */
+    text-decoration: none; /* Ensure no underline by default */
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+/* Hover effect for the creator name link */
+.creator-link:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    text-decoration: underline; /* Optional: Add underline on hover */
+    text-decoration-color: #007bff; /* Optional: Match underline color */
+}
