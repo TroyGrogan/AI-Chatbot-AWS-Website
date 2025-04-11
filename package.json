@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "katex": "^0.16.21",
+    "react-katex": "^3.0.1",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  }
+}
