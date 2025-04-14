@@ -195,9 +195,15 @@ class LlamaModel:
                 
                 # Configure S3 parameters from Django settings
                 s3_bucket_name = getattr(settings, 'AWS_S3_BUCKET_NAME', None)
-                s3_model_key = "llama-model.gguf" # Assuming this is the key based on your IAM role
+                s3_model_key = "TheBloke-openchat-3.5-0106.Q3_K_M.gguf" # Assuming this is the key based on your IAM role
                 if not s3_bucket_name:
                     raise ValueError("AWS_S3_BUCKET_NAME is not set in Django settings.")
+
+                # What is the Model Key?
+
+                # In the context of accessing objects in Amazon S3, 
+                # the model key is essentially the name of your model file.
+                # Think of it as the filename within your S3 bucket.
 
                 print(f"Attempting to load model from S3 bucket: '{s3_bucket_name}' with key: '{s3_model_key}'")
 
