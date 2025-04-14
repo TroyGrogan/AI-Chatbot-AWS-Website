@@ -118,6 +118,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "backend.wsgi.application"
 
 
+# AWS Settings
+AWS_S3_BUCKET_NAME = 'ai-model-bucket-troygrogan'
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
