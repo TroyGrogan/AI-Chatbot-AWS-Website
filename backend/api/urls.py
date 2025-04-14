@@ -1,8 +1,26 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
-from .views import bookmark_chat, unbookmark_chat, bookmarked_chats, DeleteAccountView
+from .views import bookmark_chat, unbookmark_chat, bookmarked_chats, DeleteAccountView, health, api, admin
 
+# Create a router for API endpoints
+router = DefaultRouter()
+router.register(r'llm-requests', api.LLMRequestViewSet)
+
+# URL patterns for the API
 urlpatterns = [
+    # Health check endpoint
+    path('health/', health.HealthCheckView.as_view(), name='health_check'),
+    
+    # API endpoints
+    path('', include(router.urls)),
+    path('process/', api.ProcessRequestView.as_view(), name='process_request'),
+    
+    # Admin dashboard endpoints
+    path('admin/dashboard/', admin.AdminDashboardView.as_view(), name='admin_dashboard'),
+    path('admin/performance/', admin.PerformanceMetricsView.as_view(), name='performance_metrics'),
+    path('admin/cache/', admin.CacheStatsView.as_view(), name='cache_stats'),
+    path('admin/system/', admin.SystemMetricsView.as_view(), name='system_metrics'),
     path("notes/", views.NoteListCreate.as_view(), name="note-list"),
     path("notes/delete/<int:pk>/", views.NoteDelete.as_view(), name="delete-note"),
     path("chats/", views.ChatListCreate.as_view(), name="chat-list"),

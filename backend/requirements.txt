@@ -19,3 +19,4 @@ torch==2.0.1
 scipy==1.10.1
 sympy==1.12
 boto3==1.28.76 #This is done for AWS Communication in the backend
+psutil==5.9.8

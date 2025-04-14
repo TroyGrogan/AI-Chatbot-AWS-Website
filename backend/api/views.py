@@ -13,6 +13,16 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 import uuid
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+import json
+import logging
+from .monitoring import get_performance_metrics, get_system_metrics, reset_metrics
+from .cache_management import get_cache_stats, reset_cache_stats, clear_model_cache
+
+logger = logging.getLogger(__name__)
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -682,3 +692,113 @@ class DeleteAccountView(APIView):
             return Response({"detail": "Your account has been successfully deleted."}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"detail": f"Failed to delete account: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+@login_required
+def admin_dashboard(request):
+    """
+    Admin dashboard endpoint that provides monitoring information.
+    
+    Returns:
+        JsonResponse: Dashboard data including performance metrics and cache stats
+    """
+    try:
+        # Get performance metrics
+        performance_metrics = get_performance_metrics()
+        
+        # Get system metrics
+        system_metrics = get_system_metrics()
+        
+        # Get cache stats
+        cache_stats = get_cache_stats()
+        
+        # Calculate derived metrics
+        cache_hit_rate = 0
+        if cache_stats["total_cache_requests"] > 0:
+            cache_hit_rate = cache_stats["cache_hits"] / cache_stats["total_cache_requests"]
+            
+        avg_latency = 0
+        if performance_metrics["total_requests"] > 0:
+            avg_latency = performance_metrics["total_latency"] / performance_metrics["total_requests"]
+        
+        # Prepare response data
+        dashboard_data = {
+            "performance": {
+                "total_requests": performance_metrics["total_requests"],
+                "avg_latency_ms": round(avg_latency * 1000, 2),  # Convert to ms
+                "cached_responses": performance_metrics["cached_responses"],
+                "errors": performance_metrics["errors"],
+                "token_usage": performance_metrics["token_usage"],
+                "requests_by_model": performance_metrics["requests_by_model"],
+            },
+            "cache": {
+                "hit_rate": round(cache_hit_rate * 100, 2),  # As percentage
+                "total_requests": cache_stats["total_cache_requests"],
+                "hits": cache_stats["cache_hits"],
+                "misses": cache_stats["cache_misses"],
+                "items_count": cache_stats["cache_items_count"],
+                "size_mb": round(cache_stats["estimated_cache_size_mb"], 2),
+                "evictions": cache_stats["evictions"],
+                "last_reset": cache_stats["last_reset"],
+            },
+            "system": {
+                "cpu_percent": system_metrics["cpu_percent"],
+                "memory_percent": system_metrics["memory_percent"],
+                "memory_used_mb": round(system_metrics["memory_used"] / (1024 * 1024), 2),
+            }
+        }
+        
+        return JsonResponse({
+            "status": "success",
+            "data": dashboard_data
+        })
+    except Exception as e:
+        logger.error(f"Error retrieving dashboard data: {str(e)}")
+        return JsonResponse({
+            "status": "error",
+            "message": str(e)
+        }, status=500)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+@login_required
+def reset_monitoring(request):
+    """
+    Reset all monitoring metrics and optionally clear cache.
+    
+    Request parameters:
+        - clear_cache: Boolean indicating whether to clear cache
+        - model: Optional model name to clear cache for specific model only
+    
+    Returns:
+        JsonResponse: Success message
+    """
+    try:
+        data = json.loads(request.body)
+        clear_cache = data.get("clear_cache", False)
+        model = data.get("model", None)
+        
+        # Reset performance metrics
+        reset_metrics()
+        
+        # Reset cache stats and optionally clear cache
+        if clear_cache:
+            items_cleared = clear_model_cache(model)
+            message = f"Metrics reset and {items_cleared} cache items cleared"
+            if model:
+                message += f" for model {model}"
+        else:
+            reset_cache_stats()
+            message = "Metrics reset"
+        
+        return JsonResponse({
+            "status": "success",
+            "message": message
+        })
+    except Exception as e:
+        logger.error(f"Error resetting monitoring: {str(e)}")
+        return JsonResponse({
+            "status": "error",
+            "message": str(e)
+        }, status=500)
